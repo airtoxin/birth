@@ -5,7 +5,7 @@ var ps      = require( 'path' );
 var wrench  = require( 'wrench' );
 var _       = require( 'lodash' );
 
-var packagePath = './package.json';
+var packagePath = ps.join( __dirname, 'package.json' );
 var defaultBoilerplatesPath = ps.join( process.env.HOME, '.boilerplates/' );
 
 var _getBoilerplatesPath = function () {
