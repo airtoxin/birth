@@ -64,21 +64,26 @@ var generate = function ( name, options ) {
 var list = function () {
 	_checkBoilerplatesPath();
 	var bpp = _getBoilerplatesPath();
-	_.chain( fs.readdirSync( bpp ) ).map( function ( file ) {
-		return {
-			name: file,
-			path: ps.join( bpp, file )
-		};
-	} ).filter( function ( obj ) {
-		return fs.lstatSync( obj.path ).isDirectory();
-	} ).map( function ( obj ) {
-		obj.description = _getBoilerplateDescription( obj.path );
-		return obj;
-	} ).each( function ( obj ) {
-		console.log( ( 'Boilerplate: ' + obj.name + ' (' + obj.path + ')' ).blue.bold );
-		console.log( ( '\t' + obj.description ) );
-		console.log();
-	} );
+	var lsfile = fs.readdirSync( bpp );
+	if ( lsfile.length === 0 ) {
+		console.log( 'No boilerplate available'.blue );
+	} else {
+		_.chain( fs.readdirSync( bpp ) ).map( function ( file ) {
+			return {
+				name: file,
+				path: ps.join( bpp, file )
+			};
+		} ).filter( function ( obj ) {
+			return fs.lstatSync( obj.path ).isDirectory();
+		} ).map( function ( obj ) {
+			obj.description = _getBoilerplateDescription( obj.path );
+			return obj;
+		} ).each( function ( obj ) {
+			console.log( ( 'Boilerplate: ' + obj.name + ' (' + obj.path + ')' ).blue.bold );
+			console.log( ( '\t' + obj.description ) );
+			console.log();
+		} );
+	}
 	process.exit();
 };
 

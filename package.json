@@ -1,6 +1,6 @@
 {
   "name": "birth",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "simple boilerplate generator",
   "main": "index.js",
   "bin": {
