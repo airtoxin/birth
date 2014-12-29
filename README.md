@@ -1,0 +1,4 @@
+birth
+=====
+
+simple boilerplate generator
