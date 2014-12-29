@@ -93,11 +93,29 @@ var regist = function ( newBpPath ) {
 	process.exit();
 };
 
+var unregist = function ( bpName ) {
+	_checkBoilerplatesPath();
+	var path = ps.join( _getBoilerplatesPath(), bpName );
+	if ( !fs.existsSync( path ) || !fs.lstatSync( path ).isDirectory() ) {
+		console.log( ( bpName + ' Boilerplate not found' ).red );
+		process.exit();
+	} else {
+		rl.question( 'really unregist ' + bpName + ' ?\n[y/N]', function ( answer ) {
+			if ( answer === 'y' ) {
+				wrench.rmdirSyncRecursive( path );
+				console.log( ( bpName + ' Boilerplate unregisted' ).blue );
+			}
+			rl.close();
+		} );
+	}
+};
+
 module.exports = {
 	_getBoilerplatesPath: _getBoilerplatesPath,
 	_writeboilerplatesPath: _writeboilerplatesPath,
 	init: init,
 	generate: generate,
 	list: list,
-	regist: regist
+	regist: regist,
+	unregist: unregist
 };

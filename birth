@@ -27,6 +27,11 @@ program
 	.description( 'regist new boilerplate from path' )
 	.action( birth.regist );
 
+program
+	.command( 'unregist <name>' )
+	.description( 'unregist boilerplate' )
+	.action( birth.unregist );
+
 program.parse( process.argv );
 
 if ( program.args.length === 0 ) {
