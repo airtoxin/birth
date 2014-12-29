@@ -1,6 +1,6 @@
 {
   "name": "birth",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "simple boilerplate generator",
   "main": "index.js",
   "bin": {
@@ -24,6 +24,7 @@
   "dependencies": {
     "colors": "^1.0.3",
     "commander": "^2.5.1",
+    "lodash": "^2.4.1",
     "wrench": "^1.5.8"
   }
 }
