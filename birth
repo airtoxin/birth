@@ -22,4 +22,9 @@ program
 	.description( 'list available boilerplates' )
 	.action( birth.list );
 
+program
+	.command( 'regist <path>' )
+	.description( 'regist new boilerplate from path' )
+	.action( birth.regist );
+
 program.parse( process.argv );

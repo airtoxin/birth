@@ -87,7 +87,8 @@ var regist = function ( newBpPath ) {
 	if ( !fs.existsSync( newBpPath ) || !fs.lstatSync( newBpPath ).isDirectory() ) {
 		console.log( ( 'Boilerplate not found in ' + newBpPath ).red );
 	} else {
-
+		wrench.copyDirSyncRecursive( newBpPath, ps.join( _getBoilerplatesPath(), ps.basename( newBpPath ) ) );
+		console.log( ( 'New boilerplate ' + ps.basename( newBpPath ) + ' successfully added' ).blue );
 	}
 	process.exit();
 };
