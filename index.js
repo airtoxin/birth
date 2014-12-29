@@ -27,8 +27,16 @@ var _writeboilerplatesPath = function ( path ) {
 	fs.writeFileSync( packagePath, JSON.stringify( json ) );
 };
 
+var _checkBoilerplatesPath = function () {
+	if ( !_getBoilerplatesPath() ) {
+		console.log( 'run `birth init` at first'.bold.red );
+		process.exit();
+	}
+};
+
 var init = function () {
-	rl.question( 'enter boilerplates directory path. (default=' + defaultBoilerplatesPath + ')\n', function ( path ) {
+	console.log( ( 'current boilerplates directory path: ' + _getBoilerplatesPath() ).bold );
+	rl.question( 'enter new boilerplates directory path. (default=' + defaultBoilerplatesPath + ')\n', function ( path ) {
 		if ( !path ) path = defaultBoilerplatesPath;
 		if ( !fs.existsSync( path ) ) fs.mkdirSync( path );
 		_writeboilerplatesPath( path );
@@ -39,6 +47,7 @@ var init = function () {
 };
 
 var generate = function ( name, options ) {
+	_checkBoilerplatesPath();
 	var path = ps.join( _getBoilerplatesPath(), name );
 	if ( !fs.existsSync( path ) || !fs.lstatSync( path ).isDirectory() ) {
 		console.log( ( 'No Boilerplate \'' + name + '\' available' ).red );
@@ -53,6 +62,7 @@ var generate = function ( name, options ) {
 };
 
 var list = function () {
+	_checkBoilerplatesPath();
 	var bpp = _getBoilerplatesPath();
 	_.chain( fs.readdirSync( bpp ) ).map( function ( file ) {
 		return {
@@ -73,6 +83,7 @@ var list = function () {
 };
 
 var regist = function ( newBpPath ) {
+	_checkBoilerplatesPath();
 	if ( !fs.existsSync( newBpPath ) || !fs.lstatSync( newBpPath ).isDirectory() ) {
 		console.log( ( 'Boilerplate not found in ' + newBpPath ).red );
 	} else {
