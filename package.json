@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/airtoxin/birth",
   "dependencies": {
-    "commander": "^2.5.1"
+    "commander": "^2.5.1",
+    "wrench": "^1.5.8"
   }
 }

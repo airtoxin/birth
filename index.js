@@ -1,7 +1,8 @@
-var rl = require( 'readline' ).createInterface( { input: process.stdin, output: process.stdout } );
-var fs = require( 'fs' );
-var ps = require( 'path' );
-var _  = require( 'lodash' );
+var rl     = require( 'readline' ).createInterface( { input: process.stdin, output: process.stdout } );
+var fs     = require( 'fs' );
+var ps     = require( 'path' );
+var wrench = require( 'wrench' );
+var _      = require( 'lodash' );
 
 var packagePath = './package.json';
 var defaultBoilerplatesPath = ps.join( process.env.HOME, '.boilerplates/' );
@@ -29,10 +30,21 @@ var init = function () {
 		_writeboilerplatesPath( path );
 		console.log( 'set boilerplates path: ' + path );
 		rl.close();
+		process.exit();
 	} );
 };
 var generate = function ( name, options ) {
-	console.log("@name,options:", name,options);
+	var path = ps.join( _getBoilerplatesPath(), name );
+	if ( !fs.existsSync( path ) || !fs.lstatSync( path ).isDirectory() ) {
+		console.log( 'No Boilerplate \'' + name + '\' available' );
+	} else {
+		var dest = process.cwd();
+		if ( options.path ) dest = options.path;
+		dest = ps.join( dest, name );
+		wrench.copyDirSyncRecursive( path, dest );
+		console.log( name + ' successfully generated!' );
+	}
+	process.exit();
 };
 var list = function () {
 	var bpp = _getBoilerplatesPath();
@@ -51,6 +63,7 @@ var list = function () {
 		console.log( '\t' + obj.description );
 		console.log();
 	} );
+	process.exit();
 };
 
 module.exports = {
