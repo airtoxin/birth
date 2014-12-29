@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+var rl = require( 'readline' ).createInterface( { input: process.stdin, output: process.stdout } );
+var fs = require( 'fs' );
+var ps = require( 'path' );
+var program = require( 'commander' );
+
+var packagePath = './package.json';
+var defaultBoilerplatesPath = ps.join( process.env.HOME, '.boilerplates/' );
+
+program
+	.version( require( packagePath ).version );
+
+program
+	.command( 'init' )
+	.description( '(re)set inilial settings' )
+	.action( init )
+
+program
+	.command( 'generate <name>' )
+	.alias( 'gen' )
+	.description( 'generate named boilerplate' )
+	.option( '-p, --path <path>', 'where to generate boilerplate' )
+	.action( generate );
+
+program
+	.command( 'list' )
+	.description( 'list available boilerplates' )
+	.action( list );
+
+function init () {
+	rl.question( 'enter boilerplates directory path. (default=' + defaultBoilerplatesPath + ')\n', function ( path ) {
+		if ( !path ) path = defaultBoilerplatesPath;
+		if ( !fs.existsSync( path ) ) fs.mkdirSync( path );
+		var json = JSON.parse( fs.readFileSync( packagePath ) );
+		json.boilerplates = path;
+		fs.writeFileSync( packagePath, JSON.stringify( json ) );
+		console.log( 'set boilerplates path: ' + path );
+		rl.close();
+	} );
+};
+
+function generate ( name, options ) {
+	var path = options.path;
+};
+
+function list () {
+};
+
+program.parse( process.argv );

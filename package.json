@@ -1,0 +1,27 @@
+{
+  "name": "birth",
+  "version": "0.0.1",
+  "description": "simple boilerplate generator",
+  "main": "index.js",
+  "bin": {
+    "birth": "./birth"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/airtoxin/birth.git"
+  },
+  "keywords": [
+    "boilerplate",
+    "generator",
+    "template"
+  ],
+  "author": "airtoxin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/airtoxin/birth/issues"
+  },
+  "homepage": "https://github.com/airtoxin/birth",
+  "dependencies": {
+    "commander": "^2.5.1"
+  }
+}
